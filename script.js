@@ -2,6 +2,8 @@ $(document).ready(function() {
     var hour = 0;
     setTime()
     
+
+
       //gets date time from moment JS and keeps it refreshing on page to stay current
       function setTime() {
         var secondsLeft = 3600;
@@ -13,6 +15,7 @@ $(document).ready(function() {
         }
          var timer = timeManagement();
          colorCoding()
+         refresh()
          console.log(timer);
 
       }, 1000);
@@ -20,14 +23,14 @@ $(document).ready(function() {
     }
     function timeManagement() {
         var day = $("#currentDay"); 
-        var date = moment().format('lllls').toString();
+        var date = moment().format('llll').toString();
         day.text(date);
         console.log(date);
         var ampm = date.split(" ");
         console.log(ampm);
         hour = parseInt(moment().format('LT').toString());
         console.log(ampm[5])
-        if (ampm[5] === "pm") {
+        if (ampm[5] === "PM") {
             hour = hour + 12;
             return hour;
         }
@@ -36,19 +39,33 @@ $(document).ready(function() {
     function colorCoding() {
         for (var i = 8; i < 18; i++){
             if (hour < i){
-                console.log("#" + i)
-               $("#" + i).attr("style", "background-color: skyblue;")
+                console.log("." + i)
+               $("." + i).attr("style", "background-color: skyblue;")
             }
-            if (hour = i){
-                console.log("#" + i)
-               $("#" + i).attr("style", "background-color: white;")
+            if (hour === i){
+                console.log("." + i)
+               $("." + i).attr("style", "background-color: white;")
             }
             if (hour > i){
-                console.log("#" + i)
-               $("#" + i).attr("style", "background-color: pink;")
+                console.log("." + i)
+               $("." + i).attr("style", "background-color: pink;")
             }
 
         }
     }
+    $("button").on("click", function() {
 
+        for (var i = 8; i < 18; i++){
+            var text = $("#" + i).val();
+            console.log(text);
+            localStorage.setItem(("#" + i), text)
+        }
+    })
+    function refresh(){
+        for (var i = 8; i < 18; i++){
+            var holder = localStorage.getItem("#" + i)
+            console.log(holder);
+            $("#" + i).val(holder)
+        }
+    }
 });
