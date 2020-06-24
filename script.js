@@ -52,7 +52,7 @@ $(document).ready(function() {
     $("button").on("click", function() {
 
         for (var i = 8; i < 18; i++){
-            var text = $("#" + i);
+            var text = $("#" + i).val();
             localStorage.setItem(("#" + i), text)
         }
         refresh()
@@ -61,7 +61,7 @@ $(document).ready(function() {
     function refresh(){
         for (var i = 8; i < 18; i++){
             var holder = localStorage.getItem("#" + i)
-            if (holder.value !== ""){
+            if (holder !== ""){
                 $("#" + i).val(holder);
             }
         }
