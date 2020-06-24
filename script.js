@@ -5,7 +5,7 @@ $(document).ready(function() {
     
 
 
-      //gets date time from moment JS and keeps it refreshing on page to stay current
+      //gets date time from moment JS and uses a repeating timer to keep items refreshing and stay current
       function setTime() {
         var secondsLeft = 3600;
         var timerInterval = setInterval(function() {
@@ -14,12 +14,13 @@ $(document).ready(function() {
         clearInterval(timerInterval);
         setTime();
         }
-         var timer = timeManagement();
+         timeManagement();
          colorCoding()
 
       }, 1000);
       
     }
+    //chooses the momentJS format to use and converts it to UTC for easier management of the color coding
     function timeManagement() {
         var day = $("#currentDay"); 
         var date = moment().format('llll').toString();
@@ -32,6 +33,7 @@ $(document).ready(function() {
         }
         return hour;
     }
+    //Simple past present or future decision making for color coding
     function colorCoding() {
         for (var i = 8; i < 18; i++){
             if (hour < i){
@@ -46,6 +48,7 @@ $(document).ready(function() {
 
         }
     }
+    //click any button doesn't matter but the typed in event will store to the proper time key
     $("button").on("click", function() {
 
         for (var i = 8; i < 18; i++){
@@ -54,6 +57,7 @@ $(document).ready(function() {
         }
         refresh()
     })
+    //updates the page on load or after new submissions to keep it current
     function refresh(){
         for (var i = 8; i < 18; i++){
             var holder = localStorage.getItem("#" + i)
